@@ -25,8 +25,8 @@ const Edit = () => {
       const updatedUser = await updateMe({ username });
       setUser(updatedUser);
       router.push("/profile");
-    } catch (err: unknown) {
-      const message = (err as Error).message || "Error occurred";
+    } catch (error) {
+      const message = (error as Error).message || "Error occurred";
       setError(message);
     } finally {
       setIsSubmitting(false);
@@ -53,6 +53,7 @@ const Edit = () => {
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
             <input
+              defaultValue={user.username}
               id="username"
               type="text"
               className={css.input}

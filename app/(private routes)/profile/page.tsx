@@ -4,6 +4,40 @@ import Link from "next/link";
 import { getMe } from "@/lib/api/serverApi";
 import { redirect } from "next/navigation";
 
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const user = await getMe();
+
+    return {
+      title: `Profile of ${user.username}`,
+      description: `Information about profile ${user.username}`,
+      openGraph: {
+        title: `Profile of ${user.username}`,
+        description: `Information about profile ${user.username}`,
+        url: `/profile`,
+        siteName: "NoteHub",
+        images: [
+          {
+            url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+            width: 1200,
+            height: 630,
+            alt: "profile",
+          },
+        ],
+        type: "profile",
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch user data:", error);
+    return {
+      title: "Profile",
+      description: "User profile page",
+    };
+  }
+}
+
 const Profile = async () => {
   let user = null;
   try {

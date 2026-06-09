@@ -1,0 +1,33 @@
+.navigationItem {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.navigationLink {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.userEmail {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: green;
+  padding: 4px 12px;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.logoutButton {
+  background-color: red;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
