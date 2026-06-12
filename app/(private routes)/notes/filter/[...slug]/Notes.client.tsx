@@ -22,13 +22,12 @@ const NotesClient = ({
 }: NotesClientProps) => {
   const [search, setSearch] = useState(initialSearch);
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const tag = initialTag;
 
-  const normalizedTag = tag ?? "all";
+  const normalizedTag = initialTag ?? "all";
 
   const { data, isSuccess } = useQuery({
     queryKey: ["notes", search, currentPage, normalizedTag],
-    queryFn: () => fetchNotes(search, currentPage, tag),
+    queryFn: () => fetchNotes(search, currentPage, normalizedTag),
     placeholderData: keepPreviousData,
     throwOnError: true,
   });
@@ -53,7 +52,7 @@ const NotesClient = ({
           Create note +
         </Link>
       </header>
-      {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
+      {data && data?.notes?.length > 0 && <NoteList notes={data.notes} />}
     </div>
   );
 };
