@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { parse } from "cookie";
 import { checkSession } from "@/lib/api/serverApi";
 
-const privateRoutes = ["/profile", "/notes/:path*"];
+const privateRoutes = ["/profile", "/notes"];
 const publicRoutes = ["/sign-in", "/sign-up"];
 
 export async function proxy(request: NextRequest) {
@@ -33,10 +33,13 @@ export async function proxy(request: NextRequest) {
             path: parsed.Path,
             maxAge: Number(parsed["Max-Age"]),
           };
-          if (parsed.accessToken)
+
+          if (parsed.accessToken) {
             cookieStore.set("accessToken", parsed.accessToken, options);
-          if (parsed.refreshToken)
+          }
+          if (parsed.refreshToken) {
             cookieStore.set("refreshToken", parsed.refreshToken, options);
+          }
         }
         if (isPublicRoute) {
           return NextResponse.redirect(new URL("/", request.url), {
