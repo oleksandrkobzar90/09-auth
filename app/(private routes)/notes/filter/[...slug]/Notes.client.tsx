@@ -22,8 +22,9 @@ const NotesClient = ({
 }: NotesClientProps) => {
   const [search, setSearch] = useState(initialSearch);
   const [currentPage, setCurrentPage] = useState(initialPage);
+  const tag = initialTag;
 
-  const normalizedTag = initialTag ?? "all";
+  const normalizedTag = tag ?? "all";
 
   const { data, isSuccess } = useQuery({
     queryKey: ["notes", search, currentPage, normalizedTag],
