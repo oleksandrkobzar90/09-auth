@@ -33,14 +33,14 @@ export const fetchNoteById = async (id: string) => {
   return data;
 };
 
-export type RegisterRequest = Omit<User, "avatar">;
+export type RegisterRequest = { email: string; password: string };
 
 export const register = async (user: RegisterRequest) => {
   const { data } = await nextServer.post<User>("/auth/register", user);
   return data;
 };
 
-export type LoginRequest = Omit<User, "avatar">;
+export type LoginRequest = { email: string; password: string };
 
 export const login = async (user: LoginRequest) => {
   const { data } = await nextServer.post<User>("/auth/login", user);
@@ -57,7 +57,7 @@ type CheckSessionRequest = {
 
 export const checkSession = async () => {
   const { data } = await nextServer.get<CheckSessionRequest>("/auth/session");
-  return data;
+  return data.success;
 };
 
 export const getMe = async () => {
@@ -66,8 +66,7 @@ export const getMe = async () => {
 };
 
 export type UpdateUserRequest = {
-  username?: string;
-  photoUrl?: string;
+  username: string;
 };
 
 export const updateMe = async (payload: UpdateUserRequest) => {

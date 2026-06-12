@@ -4,7 +4,7 @@ import { updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { SubmitEvent, useState } from "react";
+import { useState } from "react";
 
 const Edit = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const Edit = () => {
 
   if (!user) return null;
 
-  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
@@ -47,13 +47,14 @@ const Edit = () => {
           width={120}
           height={120}
           className={css.avatar}
+          priority
         />
 
         <form className={css.profileInfo} onSubmit={handleSubmit}>
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
             <input
-              defaultValue={user.username}
+              value={username}
               id="username"
               type="text"
               className={css.input}

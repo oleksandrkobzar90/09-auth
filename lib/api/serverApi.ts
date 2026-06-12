@@ -5,15 +5,15 @@ import { Note } from "@/types/note";
 
 export const checkSession = async () => {
   const cookieStore = await cookies();
-  const { data } = await nextServer.get("/auth/session", {
+  const res = await nextServer.get("/auth/session", {
     headers: {
       Cookie: cookieStore.toString(),
     },
   });
-  return data;
+  return res;
 };
 
-export const getMe = async (): Promise<User> => {
+export const getServerMe = async (): Promise<User> => {
   const cookieStore = await cookies();
   const { data } = await nextServer.get("/users/me", {
     headers: {
@@ -28,7 +28,7 @@ interface FetchNotesResponse {
   totalPages: number;
 }
 
-export const fetchNotes = async (
+export const fetchServerNotes = async (
   search?: string,
   page?: number,
   tag?: string,
@@ -43,7 +43,7 @@ export const fetchNotes = async (
   return data;
 };
 
-export const fetchNoteById = async (id: string) => {
+export const fetchServerNoteById = async (id: string) => {
   const cookieStore = await cookies();
   const { data } = await nextServer.get<Note>(`/notes/${id}`, {
     headers: {

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import css from "@/components/Profile/Profile.module.css";
 import Link from "next/link";
-import { getMe } from "@/lib/api/serverApi";
+import { getServerMe } from "@/lib/api/serverApi";
 import { redirect } from "next/navigation";
 
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const user = await getMe();
+    const user = await getServerMe();
 
     return {
       title: `Profile of ${user.username}`,
@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const Profile = async () => {
   let user = null;
   try {
-    user = await getMe();
+    user = await getServerMe();
   } catch (error) {
     console.error("Failed to fetch user data:", error);
   }
@@ -64,6 +64,7 @@ const Profile = async () => {
             width={120}
             height={120}
             className={css.avatar}
+            priority
           />
         </div>
         <div className={css.profileInfo}>
