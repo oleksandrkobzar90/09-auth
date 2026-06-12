@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Image from "next/image";
 import css from "@/components/Profile/Profile.module.css";
 import Link from "next/link";
@@ -46,7 +48,9 @@ const Profile = async () => {
     console.error("Failed to fetch user data:", error);
   }
 
-  if (!user) redirect("/login");
+  if (!user) {
+    redirect("/login");
+  }
 
   return (
     <main className={css.mainContent}>
